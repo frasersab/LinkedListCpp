@@ -1,6 +1,5 @@
 #include "LinkedList.h"
 #include <stdexcept>
-#include <iostream>
 
 template <typename T>
 using Node = typename LinkedList<T>::Node;
