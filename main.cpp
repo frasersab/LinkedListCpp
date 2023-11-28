@@ -137,6 +137,6 @@ int main()
 	testDeletionAt();
 	testClear();
 	testAccessors();
-	std::cout << "All tests passed" << std::endl;
+	std::cout << "Tests completed" << std::endl;
 	return 0;
 }
