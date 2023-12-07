@@ -14,6 +14,14 @@ list.get(0);
 list.remove(); // will remove last element
 list.clear();
 ```
+Iterators have also been implemented so you can use range based for loops to iterate over the linked lists.
+```cpp
+for (auto it : list)
+{
+  std::cout << it << std::endl;
+}
+```
+
 ## Lessons learned
 In making this class I listened a few interesting things.
 
