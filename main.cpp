@@ -1,6 +1,7 @@
 #include <iostream>
 #include <exception>
 #include <cassert>
+#include <string>
 #include "LinkedList.h"
 
 void testEmptyList()
@@ -56,7 +57,7 @@ void testInsertionAt()
 	assert(list.get(2) == 7);
 }
 
-void testDeletion()
+void testRemove()
 {
 	LinkedList<int> list;
 	list.insert(5);
@@ -76,7 +77,7 @@ void testDeletion()
 	assert(list.size() == 0);
 }
 
-void testDeletionAt()
+void testRemoveAt()
 {
 	LinkedList<int> list;
 	list.insert(5);
@@ -128,15 +129,54 @@ void testAccessors()
 	}
 }
 
+void testStrings()
+{
+	LinkedList<std::string> list;
+
+	list.insert("red fox");
+	list.insert("lemon");
+	list.insert("");
+
+	assert(list.get(0) == "red fox");
+	assert(list.get(1) == "lemon");
+	assert(list.get(2) == "");
+
+	list.clear();
+	assert(list.size() == 0);
+}
+
+void testIterator()
+{
+	LinkedList<int> list;
+	list.insert(5);
+	list.insert(3);
+	list.insert(7);
+	
+	int i = 0;
+	for (auto it : list)
+	{
+		assert(it == list.get(i));
+		i++;
+	}
+	i--;
+	for (auto it = list.rbegin(); it != list.rend(); --it)
+	{
+		assert(*it == list.get(i));
+		i--;
+	}
+}
+
 int main()
 {
 	testEmptyList();
 	testInsertion();
 	testInsertionAt();
-	testDeletion();
-	testDeletionAt();
+	testRemove();
+	testRemoveAt();
 	testClear();
 	testAccessors();
+	testStrings();
+	testIterator();
 	std::cout << "Tests completed" << std::endl;
 	return 0;
 }
