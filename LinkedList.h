@@ -1,10 +1,27 @@
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
 
+#include <stdexcept>
+#include <iterator>
+#include <cstddef>
+
 template <typename T>
 class LinkedList
 {
   public:
+	// Tags
+	using iterator_category = std::bidirectional_iterator_tag;
+	using difference_type = std::ptrdiff_t;
+	using value_type = T;
+	using pointer = T *;
+	using reference = T &;
+
+	class Iterator;
+	Iterator begin();
+	Iterator end();
+	Iterator rbegin();
+	Iterator rend();
+
 	// Constructors
 	LinkedList();
 	LinkedList(const LinkedList &);
@@ -36,6 +53,29 @@ class LinkedList
 	Node *head; // first node in the list
 	Node *tail; // last node in the list
 	int size_;	// number of nodes in the list
+};
+
+// Iterator class
+template <typename T>
+class LinkedList<T>::Iterator
+{
+  public:
+	// Constructors
+	Iterator(LinkedList<T> *list, LinkedList<T>::Node *current);
+
+	// Operator overloads
+	reference operator*();
+	pointer operator->();
+
+	Iterator &operator++();
+	Iterator &operator--();
+
+	bool operator==(const Iterator &other) const;
+	bool operator!=(const Iterator &other) const;
+
+  private:
+	LinkedList<T> *list_;
+	LinkedList<T>::Node *current_;
 };
 
 #include "LinkedList.tpp"
