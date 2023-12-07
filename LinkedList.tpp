@@ -1,8 +1,30 @@
-#include "LinkedList.h"
-#include <stdexcept>
-
+// LinkedList methods
 template <typename T>
 using Node = typename LinkedList<T>::Node;
+
+template <typename T>
+typename LinkedList<T>::Iterator LinkedList<T>::begin()
+{
+	return LinkedList<T>::Iterator(this, head);
+}
+
+template <typename T>
+typename LinkedList<T>::Iterator LinkedList<T>::end()
+{
+	return LinkedList<T>::Iterator(this, tail->next);
+}
+
+template <typename T>
+typename LinkedList<T>::Iterator LinkedList<T>::rbegin()
+{
+	return LinkedList<T>::Iterator(this, tail);
+}
+
+template <typename T>
+typename LinkedList<T>::Iterator LinkedList<T>::rend()
+{
+	return LinkedList<T>::Iterator(this, head->prev);
+}
 
 template <typename T>
 LinkedList<T>::LinkedList() : head(nullptr), tail(nullptr), size_(0) {}
@@ -150,4 +172,47 @@ typename LinkedList<T>::Node *LinkedList<T>::getNodeAt(int index) const
 		current = current->next;
 	}
 	return current;
+}
+
+// Iterator methods
+template <typename T>
+LinkedList<T>::Iterator::Iterator(LinkedList<T> *list, LinkedList<T>::Node *current) : list_(list), current_(current) {}
+
+// todo: use type definitions from class instead
+template <typename T>
+T &LinkedList<T>::Iterator::operator*()
+{
+	return current_->data;
+}
+
+template <typename T>
+T *LinkedList<T>::Iterator::operator->()
+{
+	return &**this;
+}
+
+template <typename T>
+typename LinkedList<T>::Iterator &LinkedList<T>::Iterator::operator++()
+{
+	current_ = current_->next;
+	return *this;
+}
+
+template <typename T>
+typename LinkedList<T>::Iterator &LinkedList<T>::Iterator::operator--()
+{
+	current_ = current_->prev;
+	return *this;
+}
+
+template <typename T>
+bool LinkedList<T>::Iterator::operator==(const Iterator &other) const
+{
+	return current_ == other.current_;
+}
+
+template <typename T>
+bool LinkedList<T>::Iterator::operator!=(const Iterator &other) const
+{
+	return current_ != other.current_;
 }
